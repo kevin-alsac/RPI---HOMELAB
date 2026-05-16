@@ -1,4 +1,4 @@
-# 04 - Reverse proxy
+# 06 - Reverse proxy
 
 Configuration HTTPS avec Caddy pour exposer Nextcloud proprement.
 
