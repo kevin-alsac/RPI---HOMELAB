@@ -221,7 +221,7 @@ Téléchargement :
 Exemple :
 
 ```bash
-ssh piadmin@100.x.x.x
+ssh pi_admin@100.x.x.x
 ```
 
 Aucune ouverture de port Internet n’est nécessaire.
