@@ -82,10 +82,10 @@ provient en réalité du volume chiffré :
 
 # 2. Donner les permissions
 
-Adapter `piadmin` selon votre utilisateur Linux :
+Adapter `pi_admin` selon votre utilisateur Linux :
 
 ```bash
-sudo chown piadmin:piadmin /srv/secure-data
+sudo chown pi_admin:pi_admin /srv/secure-data
 sudo chmod 700 /srv/secure-data
 ```
 
