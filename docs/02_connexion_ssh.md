@@ -194,7 +194,7 @@ ssh utilisateur@IP_DU_RPI
 Exemple :
 
 ```powershell
-ssh dante@192.168.1.50
+ssh utilisateur@192.168.1.50
 ```
 
 Si tout fonctionne correctement :
