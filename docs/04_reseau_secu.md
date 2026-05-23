@@ -312,7 +312,7 @@ Modification du fichier de policy :
 ```json
 "grants": [
 	{
-		"src": ["kevin.alsac@gmail.com"],
+		"src": ["adressemail@domaine.com"],
 		"dst": ["100.x.x.x"],
 		"ip": ["tcp:22", "tcp:443"]
 	}
