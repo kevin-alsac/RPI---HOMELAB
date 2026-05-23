@@ -408,3 +408,214 @@ Configuration :
 ├── .env
 └── .gitignore
 ```
+
+---
+
+# Gestion du démarrage avec LUKS
+
+## Problématique
+
+Les données Docker sont stockées dans la partition chiffrée :
+
+```text
+/srv/secure-data
+```
+
+Cette partition est protégée par LUKS et reste verrouillée après un redémarrage du Raspberry Pi.
+
+Si Docker démarre avant le déverrouillage de la partition :
+
+- les volumes Docker ne sont pas disponibles ;
+- Nextcloud peut démarrer avec des dossiers vides ;
+- des données peuvent être écrites au mauvais endroit ;
+- le comportement devient imprévisible.
+
+Pour éviter cela, Docker est démarré manuellement après le déverrouillage de la partition.
+
+---
+
+# Désactivation du démarrage automatique de Docker
+
+Désactiver Docker :
+
+```bash
+sudo systemctl disable docker
+```
+
+Désactiver également l'activation par socket :
+
+```bash
+sudo systemctl disable docker.socket
+```
+
+Vérifier :
+
+```bash
+systemctl is-enabled docker
+systemctl is-enabled docker.socket
+```
+
+Résultat attendu :
+
+```text
+disabled
+disabled
+```
+
+---
+
+# Script de déverrouillage
+
+Modifier :
+
+```bash
+nano ~/unlock-secure.sh
+```
+
+Contenu :
+
+```bash
+#!/bin/bash
+
+sudo cryptsetup luksOpen /dev/nvme0n1p3 ssd_data
+sudo mount /dev/mapper/ssd_data /srv/secure-data
+
+sudo systemctl start docker
+
+echo "Volume sécurisé monté et Docker démarré."
+```
+
+---
+
+# Vérification du fonctionnement
+
+Arrêter Docker :
+
+```bash
+sudo systemctl stop docker
+sudo systemctl stop docker.socket
+```
+
+Vérifier :
+
+```bash
+docker container ls
+```
+
+Résultat attendu :
+
+```text
+Cannot connect to the Docker daemon
+```
+
+Lancer ensuite :
+
+```bash
+unlock
+```
+
+Puis vérifier :
+
+```bash
+docker container ls
+```
+
+Résultat attendu :
+
+```text
+nextcloud
+nextcloud-postgres
+nextcloud-redis
+```
+
+avec l'état :
+
+```text
+Up
+```
+
+---
+
+# Test après redémarrage
+
+Redémarrer :
+
+```bash
+sudo reboot
+```
+
+Après reconnexion :
+
+```bash
+docker container ls
+```
+
+Résultat attendu :
+
+```text
+Cannot connect to the Docker daemon
+```
+
+Lancer ensuite :
+
+```bash
+unlock
+```
+
+Saisir le mot de passe LUKS.
+
+Le script effectue alors :
+
+```text
+Ouverture du volume LUKS
+↓
+Montage de /srv/secure-data
+↓
+Démarrage de Docker
+↓
+Redémarrage automatique des conteneurs
+```
+
+Vérification :
+
+```bash
+docker container ls
+```
+
+Résultat :
+
+```text
+nextcloud
+nextcloud-postgres
+nextcloud-redis
+```
+
+---
+
+# Architecture finale de démarrage
+
+```text
+Boot Raspberry Pi
+↓
+Partition LUKS verrouillée
+↓
+Docker arrêté
+↓
+Connexion SSH
+↓
+unlock
+↓
+Mot de passe LUKS
+↓
+Montage /srv/secure-data
+↓
+Démarrage Docker
+↓
+Nextcloud
+↓
+PostgreSQL
+↓
+Redis
+```
+
+Cette approche garantit que les données chiffrées sont toujours disponibles avant le démarrage des conteneurs Docker.
