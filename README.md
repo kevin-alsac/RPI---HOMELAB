@@ -110,17 +110,14 @@ Box / Routeur
 mon-homelab-rpi5/
 ├── 📄 README.md
 │
-├── 📂 docs/
-│   ├── 📄 01_chiffrement_luks.md
-│   ├── 📄 02_connexion_ssh.md
-│   ├── 📄 03_deverouillage_manuel_luks.md
-│   ├── 📄 04_reseau_secu.md
-│   ├── 📄 05_docker_apps.md
-│   ├── 📄 06_nextcloud.md
-│   └── 📄 07_sauvegardes.md
-│
-└── 📂 docker/
-    └── 📄 docker-compose.yml
+└── 📂 docs/
+    ├── 📄 01_chiffrement_luks.md
+    ├── 📄 02_connexion_ssh.md
+    ├── 📄 03_deverouillage_manuel_luks.md
+    ├── 📄 04_reseau_secu.md
+    ├── 📄 05_docker_apps.md
+    ├── 📄 06_nextcloud.md
+    └── 📄 07_sauvegardes.md
 ```
 
 ---
