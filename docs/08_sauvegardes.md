@@ -1,4 +1,4 @@
-# 07 - Sauvegardes
+# 08 - Sauvegardes
 
 Strategie de sauvegarde vers le NAS avec rsync et/ou Restic.
 

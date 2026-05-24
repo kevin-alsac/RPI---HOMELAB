@@ -117,7 +117,8 @@ mon-homelab-rpi5/
     ├── 📄 04_reseau_secu.md
     ├── 📄 05_docker_apps.md
     ├── 📄 06_nextcloud.md
-    └── 📄 07_sauvegardes.md
+    ├── 📄 07_nginx.md
+    └── 📄 08_sauvegardes.md
 ```
 
 ---
@@ -130,6 +131,7 @@ mon-homelab-rpi5/
 - [ ] [04 - Réseau et sécurité](docs/04_reseau_secu.md)
 - [ ] [05 - Docker et applications](docs/05_docker_apps.md)
 - [ ] [06 - Nextcloud](docs/06_nextcloud.md)
-- [ ] [07 - Sauvegardes](docs/07_sauvegardes.md)
+- [ ] [07 - NGINX](docs/07_nginx.md)
+- [ ] [08 - Sauvegardes](docs/08_sauvegardes.md)
 
 ---
